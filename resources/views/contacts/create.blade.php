@@ -9,11 +9,10 @@
 </head>
 
 <body>
-    <h1>Contact App</h1>
+    <h1>Add new Contact</h1>
 
     <div>
-        <a href='{{ route('contacts.index') }}'>All contacts</a>
-        <a href="{{route('contacts.create')}}">Create Contact</a>
+        <a href='{{ route('contacts.index') }}'>Return to All Contacts</a>
     </div>
 
 </body>

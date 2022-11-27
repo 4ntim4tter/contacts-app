@@ -13,14 +13,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+function getContacts () {
+    return [
+        1 => ['name' => 'Name 1', 'phone' => '1234567890'],
+        2 => ['name' => 'Name 2', 'phone' => '2345678901'],
+        3 => ['name' => 'Name 3', 'phone' => '3456789012'],
+    ];
+}
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contacts', function () {
-    return "<h1>All Contacts</h1>";
-});
+Route::prefix('admin')->group(function () {
+    Route::get('/contacts', function () {
+        $contacts = getContacts();
+        return view('contacts.index', compact('contacts'));
+    })->name('contacts.index');
 
-Route::get('/contacts/create', function(){
-    return "<h1>Add new contact</h1>";
+    Route::get('/contacts/create', function () {
+        return view('contacts.create');
+    })->name('contacts.create');
+
+    Route::get('/contacts/{id}', function ($routeId) {
+        $contacts = getContacts();
+        abort_unless(isset($contacts[$routeId]), 404);
+        $contact = $contacts[$routeId];
+        return view('contacts.show')->with('contact', $contact);
+    })->name('contacts.show');
+
+    Route::fallback(function () {
+        return "<h1>Sorry this route doesn't exist.</h1>";
+    });
 });
