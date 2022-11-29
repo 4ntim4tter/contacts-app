@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('title', 'Contact App | All Contacts')
 @section('content')
     <main class="py-5">
         <div class="container">
@@ -61,8 +61,8 @@
                                     <?php foreach ($contacts as $id => $contact): ?>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td>{{$contact['name']}}</td>
-                                        <td>{{$contact['phone']}}</td>
+                                        <td>{{ $contact['name'] }}</td>
+                                        <td>{{ $contact['phone'] }}</td>
                                         <td>alfred@test.com</td>
                                         <td>Company one</td>
                                         <td width="150">
