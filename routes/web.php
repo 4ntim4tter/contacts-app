@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactCreateController;
+use App\Http\Controllers\ContactShowController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,32 +28,19 @@ function getContacts()
     return $cont_data;
 }
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', WelcomeController::class);
+
+Route::controller(ContactController::class)->name('contacts.')->group(function(){
+    
+    Route::get('/contacts', 'index')->name('index');
+    
+    Route::get('/contacts/create', 'create')->name('create');
+    
+    Route::get('/contacts/{id}', 'show')->name('show');
+
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('/contacts', function () {
-        $companies = [
-            1 => ['name' => 'Company One', 'contacts' => 3],
-            2 => ['name' => 'Company Two', 'contacts' => 5],
-        ];
-        $contacts = getContacts();
-        return view('contacts.index', compact('contacts', 'companies'));
-    })->name('contacts.index');
 
-    Route::get('/contacts/create', function () {
-        return view('contacts.create');
-    })->name('contacts.create');
-
-    Route::get('/contacts/{id}', function ($routeId) {
-        $contacts = getContacts();
-        abort_unless(isset($contacts[$routeId]), 404);
-        $contact = $contacts[$routeId];
-        return view('contacts.show')->with('contact', $contact);
-    })->name('contacts.show');
-
-    Route::fallback(function () {
-        return "<h1>Sorry this route doesn't exist.</h1>";
-    });
+Route::fallback(function () {
+    return "<h1>Sorry this route doesn't exist.</h1>";
 });
