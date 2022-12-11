@@ -27,7 +27,6 @@ class CompanySeeder extends Seeder
                 'email' => $faker->email(),
                 'created_at' => now(),
                 'updated_at' => now(),
-
             ];
 
             $companies[] = $company;
