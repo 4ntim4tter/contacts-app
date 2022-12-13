@@ -16,7 +16,6 @@ class ContactController extends Controller
 
     public function index(CompanyRepository $company, Request $request)
     {
-
         // dd($request->sort_by);
         // $companies = [
         //     1 => ['name' => 'Company One', 'contacts' => 3],
