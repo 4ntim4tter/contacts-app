@@ -24,7 +24,7 @@ class ContactSeeder extends Seeder
 
         foreach ($companies as $company){
             foreach (range(1,mt_rand(5,15)) as $index){
-                  $contact = [
+                $contact = [
                 'first_name' => $faker->company('name'),
                 'last_name' => $faker->lastName(),
                 'phone' => $faker->phoneNumber(),
