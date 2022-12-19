@@ -6,6 +6,7 @@ use App\Repositories\CompanyRepository;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use Error;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ContactController extends Controller
@@ -52,7 +53,8 @@ class ContactController extends Controller
             'address' => 'nullable',
             'company_id' => 'required|exists:companies,id'
         ]);
-        dd($request->all());
+        Contact::create($request->all());
+        return redirect()->route('contacts.index')->with('message', 'Contact has been added successfuly.');
     }
 
     public function show($id)
