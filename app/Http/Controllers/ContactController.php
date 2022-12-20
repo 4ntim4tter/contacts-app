@@ -57,6 +57,12 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')->with('message', 'Contact has been added successfuly.');
     }
 
+    public function edit($id)
+    {
+        $contact = Contact::findOrFail($id);
+        return view('contacts.edit')->with('contact', $contact);
+    }
+
     public function show($id)
     {
         $contact = Contact::findOrFail($id);

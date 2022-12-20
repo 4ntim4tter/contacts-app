@@ -27,6 +27,8 @@ Route::get('/', WelcomeController::class);
 Route::controller(ContactController::class)->name('contacts.')->group(function () {
 
     Route::get('/contacts', 'index')->name('index');
+
+    Route::get('/contacts/edit/{id}', 'edit')->name('edit');
     
     Route::post('/contacts', 'store')->name('store');
 
