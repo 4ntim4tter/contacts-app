@@ -38,9 +38,10 @@ class ContactController extends Controller
 
     public function create()
     {
+        $edit = false;
         // dd(request()->method());
         $companies = $this->company->pluck();
-        return view('contacts.create', compact('companies'));
+        return view('contacts.create', compact('companies'))->with('edit', $edit);
     }
 
     public function store(Request $request)
@@ -59,12 +60,16 @@ class ContactController extends Controller
 
     public function edit($id)
     {
+        $edit = true;
+        $companies = $this->company->pluck();
         $contact = Contact::findOrFail($id);
-        return view('contacts.edit')->with('contact', $contact);
+        dd($contact);
+        return view('contacts.edit', compact('companies'))->with('contact', $contact)->with('edit', $edit);
     }
 
     public function show($id)
     {
+
         $contact = Contact::findOrFail($id);
         return view('contacts.show')->with('contact', $contact);
     }
