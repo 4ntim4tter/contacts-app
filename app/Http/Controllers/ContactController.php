@@ -63,8 +63,7 @@ class ContactController extends Controller
         $edit = true;
         $companies = $this->company->pluck();
         $contact = Contact::findOrFail($id);
-        dd($contact);
-        return view('contacts.edit', compact('companies'))->with('contact', $contact)->with('edit', $edit);
+        return view('contacts.edit', compact('companies'))->with('contact', $contact)->with('edit', $edit)->with('selected_id', $contact->company_id);
     }
 
     public function show($id)

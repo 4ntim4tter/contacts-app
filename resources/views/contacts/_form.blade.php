@@ -58,10 +58,14 @@
             <label for="company_id" class="col-md-3 col-form-label">Company</label>
             <div class="col-md-9">
                 <select name="company_id" id="company_id" value="{{ old('company_id') }}" class="form-control @error('company_id') is-invalid @enderror">
-
                     <option value="">Select Company</option>
                     @foreach ($companies as $id => $name)
-                    <option @selected ($contact->company_id)>{{ $name }}</option>
+                    <option 
+                    @if ($edit==true)
+                    value="{{ $selected_id }}" @selected($id == $selected_id)>{{ $name }} 
+                    @else
+                    value="{{ $id }}" @selected($contact->company_id==$id)>{{ $name }}</option>
+                    @endif
                     @endforeach
                 </select>
                 @error('company_id')
