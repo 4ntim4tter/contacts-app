@@ -58,7 +58,7 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')->with('message', 'Contact has been added successfuly.');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'first_name' => 'required|string|max:50',
@@ -68,7 +68,14 @@ class ContactController extends Controller
             'address' => 'nullable',
             'company_id' => 'required|exists:companies,id'
         ]);
-        Contact::create($request->all());
+        Contact::findOrFail($id)->update(array(
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'company_id' => $request->company_id
+        ));
         return redirect()->route('contacts.index')->with('message', 'Contact has been added successfuly.');
     }
 

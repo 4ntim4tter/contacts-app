@@ -11,7 +11,7 @@
                         <strong>Add New Contact</strong>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('contacts.update', 'id') }}">
+                        <form action="{{ route('contacts.update', $contact->id) }}" method="POST">
                             @csrf
                             @include('contacts._form')
                         </form>

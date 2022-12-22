@@ -64,8 +64,8 @@
                     @if ($edit==true)
                     value="{{ $selected_id }}" @selected($id == $selected_id)>{{ $name }} 
                     @else
-                    value="{{ $id }}" @selected($contact->company_id==$id)>{{ $name }}</option>
-                    @endif
+                    value="{{ $id }}" @selected($id==old('company_id'))>{{ $name }}
+                    @endif</option>
                     @endforeach
                 </select>
                 @error('company_id')
