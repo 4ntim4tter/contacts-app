@@ -32,7 +32,7 @@ Route::controller(ContactController::class)->name('contacts.')->group(function (
     
     Route::post('/contacts', 'store')->name('store');
 
-    Route::post('/contacts/{id}', 'update')->name('update');
+    Route::put('/contacts/{id}', 'update')->name('update');
 
     Route::get('/contacts/create', 'create')->name('create');
 
