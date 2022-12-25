@@ -5,34 +5,29 @@ namespace App\Http\Controllers;
 use App\Repositories\CompanyRepository;
 use Illuminate\Http\Request;
 use App\Models\Contact;
-use Error;
-use GuzzleHttp\Psr7\Message;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ContactController extends Controller
 {
     public function __construct(protected CompanyRepository $company)
     {
-
     }
 
     public function index(CompanyRepository $company, Request $request)
     {
-        // dd($request->sort_by);
-        // $companies = [
-        //     1 => ['name' => 'Company One', 'contacts' => 3],
-        //     2 => ['name' => 'Company Two', 'contacts' => 5],
-        // ];
-
         $companies = $this->company->pluck();
-        // $contacts = Contact::latest()->paginate(10);
-        $contacts = Contact::latest()->where(function ($query){
-            if ($companyId = request()->query('company_id'))
-            {
-                $query->where("company_id", $companyId);
+        $contacts = Contact::latest()->where(
+            function ($query) {
+                if ($companyId = request()->query('company_id')) {
+                    $query->where("company_id", $companyId);
+                }
+            }
+        )->where(function ($query) {
+            if ($search = request()->query('search')) {
+                $query->where("first_name", "LIKE", "%{$search}%");
+                $query->orWhere("last_name", "LIKE", "%{$search}%");
+                $query->orWhere("email", "LIKE", "%{$search}%");
             }
         })->paginate(10);
-
         return view('contacts.index', compact('contacts', 'companies'));
     }
 
@@ -82,8 +77,34 @@ class ContactController extends Controller
 
     public function show($id)
     {
-
+        $companies = $this->company->pluck();
         $contact = Contact::findOrFail($id);
-        return view('contacts.show')->with('contact', $contact);
+        return view('contacts.show')->with('contact', $contact)->with('company_name', $companies[$contact->company_id]);
+    }
+
+    public function destroy($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+        return redirect()->route('contacts.index')
+        ->with('message', 'Contact has been moved to trash.')
+        ->with('undoRoute', route('contacts.restore', $contact->id));
+    }
+
+    public function restore($id)
+    {
+        $contact = Contact::onlyTrashed()->findOrFail($id);
+        $contact->restore();
+        return back()
+        ->with('message', 'Contact has been restored from trash.')
+        ->with('undoRoute', route('contacts.destroy', $contact->id));
+    }
+
+    public function forceDelete($id)
+    {
+        $contact = Contact::onlyTrashed()->findOrFail($id);
+        $contact->forceDelete();
+        return back()
+        ->with('message', 'Contact has been removed permanently.');
     }
 }

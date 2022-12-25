@@ -24,20 +24,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class);
 
-Route::controller(ContactController::class)->name('contacts.')->group(function () {
+Route::resource('/contacts', ContactController::class);
+// Route::controller(ContactController::class)->name('contacts.')->group(function () {
 
-    Route::get('/contacts', 'index')->name('index');
+//     Route::get('/contacts', 'index')->name('index');
 
-    Route::get('/contacts/edit/{id}', 'edit')->name('edit');
-    
-    Route::post('/contacts', 'store')->name('store');
+//     Route::get('/contacts/edit/{id}', 'edit')->name('edit');
 
-    Route::put('/contacts/{id}', 'update')->name('update');
+//     Route::post('/contacts', 'store')->name('store');
 
-    Route::get('/contacts/create', 'create')->name('create');
+//     Route::put('/contacts/{id}', 'update')->name('update');
 
-    Route::get('/contacts/{id}', 'show')->name('show');
-});
+//     Route::get('/contacts/create', 'create')->name('create');
+
+//     Route::get('/contacts/{id}', 'show')->name('show');
+
+//     Route::delete('/contacts/{id}', 'destroy')->name('destroy');
+// });
+Route::delete('/contacts/{contact}/restore', [ContactController::class, 'restore'])->name('contacts.restore');
+
+Route::delete('/contacts/{contact}/forceDelete', [ContactController::class, 'forceDelete'])->name('contacts.forceDelete');
 
 Route::resource('/companies', CompanyController::class);
 

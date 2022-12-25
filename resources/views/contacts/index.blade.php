@@ -17,7 +17,16 @@
                     <div class="card-body">
                         @includewhen(!empty($companies), 'contacts._filter')
                         @if ($message = session('message'))
-                            <div class="alert alert-success">{{ $message }}</div>
+                        <div class="alert alert-success">{{ $message }}
+                            @if ($undoRoute=session('undoRoute'))
+                            <form action="{{ $undoRoute }}" method="POST" style="display: inline">
+                            @csrf
+                            @method('delete')
+                            <button class="btn alert-link">Undo</button>
+                            </form>
+                        @endif
+                        </div>
+
                         @endif
                         <table class="table table-striped table-hover">
                             <thead>
@@ -32,9 +41,9 @@
                             </thead>
                             <tbody>
                                 @forelse ($contacts as $index => $contact)
-                                    @include('contacts._contact', ['contact' => $contact, 'index' => $index])
+                                @include('contacts._contact', ['contact' => $contact, 'index' => $index])
                                 @empty
-                                    @include('contacts._empty')
+                                @include('contacts._empty')
                                 @endforelse
                                 {{-- @each('contacts._contact', $contacts, 'contact', 'contacts._empty') --}}
                             </tbody>
