@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', WelcomeController::class);
 
 Route::resource('/contacts', ContactController::class);
+
 // Route::controller(ContactController::class)->name('contacts.')->group(function () {
 
 //     Route::get('/contacts', 'index')->name('index');
@@ -41,9 +42,13 @@ Route::resource('/contacts', ContactController::class);
 
 //     Route::delete('/contacts/{id}', 'destroy')->name('destroy');
 // });
-Route::delete('/contacts/{contact}/restore', [ContactController::class, 'restore'])->name('contacts.restore');
+Route::delete('/contacts/{contact}/restore', [ContactController::class, 'restore'])
+->name('contacts.restore')
+->withTrashed();
 
-Route::delete('/contacts/{contact}/forceDelete', [ContactController::class, 'forceDelete'])->name('contacts.forceDelete');
+Route::delete('/contacts/{contact}/forceDelete', [ContactController::class, 'forceDelete'])
+->name('contacts.forceDelete')
+->withTrashed();
 
 Route::resource('/companies', CompanyController::class);
 

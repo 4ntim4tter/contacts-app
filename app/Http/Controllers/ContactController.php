@@ -48,9 +48,8 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')->with('message', 'Contact has been added successfuly.');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Contact $contact)
     {
-        $contact = Contact::findOrFail($id);
         $request->validate([
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
@@ -63,41 +62,36 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')->with('message', 'Contact has been added successfuly.');
     }
 
-    public function edit($id)
+    public function edit(Contact $contact)
     {
         $companies = $this->company->pluck();
-        $contact = Contact::findOrFail($id);
         return view('contacts.edit', compact('companies', 'contact'));
     }
 
-    public function show($id)
+    public function show(Contact $contact)
     {
         $companies = $this->company->pluck();
-        $contact = Contact::findOrFail($id);
         return view('contacts.show')->with('contact', $contact)->with('company_name', $companies[$contact->company_id]);
     }
 
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        $contact = Contact::findOrFail($id);
         $contact->delete();
         return redirect()->route('contacts.index')
             ->with('message', 'Contact has been moved to trash.')
             ->with('undoRoute', route('contacts.restore', $contact->id));
     }
 
-    public function restore($id)
+    public function restore(Contact $contact)
     {
-        $contact = Contact::onlyTrashed()->findOrFail($id);
         $contact->restore();
         return back()
             ->with('message', 'Contact has been restored from trash.')
             ->with('undoRoute', route('contacts.destroy', $contact->id));
     }
 
-    public function forceDelete($id)
+    public function forceDelete(Contact $contact)
     {
-        $contact = Contact::onlyTrashed()->findOrFail($id);
         $contact->forceDelete();
         return back()
             ->with('message', 'Contact has been removed permanently.');
