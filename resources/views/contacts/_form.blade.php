@@ -3,9 +3,9 @@
         <div class="form-group row">
             <label for="first_name" class="col-md-3 col-form-label">First Name</label>
             <div class="col-md-9">
-                <input type="text" name="first_name" id="first_name" value="{{ old('first_name' , $contact->first_name) }}" class="form-control 
-                @error('first_name') 
-                is-invalid 
+                <input type="text" name="first_name" id="first_name" value="{{ old('first_name' , $contact->first_name) }}" class="form-control
+                @error('first_name')
+                is-invalid
                 @enderror">
                 @error('first_name')
                 <div class="invalid-feedback">
@@ -61,7 +61,7 @@
                     <option value="">Select Company</option>
                     @foreach ($companies as $id => $name)
                     <option value="{{ $id }}" @selected($id==old('company_id', $contact->company_id))>{{ $name }}
-                        @endforeach
+                    @endforeach
                 </select>
                 @error('company_id')
                 <div class="invalid-feedback">{{ $message }}</div>
