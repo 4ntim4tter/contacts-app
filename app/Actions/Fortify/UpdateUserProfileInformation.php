@@ -79,9 +79,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         if (request()->hasFile('profile_picture')) {
             $uploadedFile = $input['profile_picture'];
+            // dump($uploadedFile);
 
-            $fileName = $uploadedFile->storeAs('profile', 'profile-user-' . request()->user()->id . '.' . $uploadedFile->getClientOriginalExtension());
+            $fileName = $uploadedFile->storeAs('test', 'profile-user-' . request()->user()->id . '.' . $uploadedFile->getClientOriginalExtension());
             $input['profile_picture'] = $fileName;
+            // dump($input);
         }
     }
 
