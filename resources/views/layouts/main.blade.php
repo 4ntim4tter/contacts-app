@@ -32,8 +32,8 @@
             <div class="collapse navbar-collapse" id="navbar-toggler">
                 <ul class="navbar-nav">
                     @auth
-                    <li class="nav-item"><a href="#" class="nav-link">Companies</a></li>
-                    <li class="nav-item active"><a href="#" class="nav-link">Contacts</a></li>
+                    <li class="nav-item"><a href="{{ route('companies.index') }}" class="nav-link">Companies</a></li>
+                    <li class="nav-item active"><a href="{{ route('contacts.index') }}" class="nav-link">Contacts</a></li>
                     @endauth
                 </ul>
                 <ul class="navbar-nav ml-auto">

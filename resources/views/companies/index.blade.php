@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        {{-- @includewhen(!empty($companies), 'companies._filter') --}}
+                        @includewhen(!empty($companies), 'companies._filter')
                         @if ($message = session('message'))
                         <div class="alert alert-success">{{ $message }}
                             @if ($undoRoute=session('undoRoute'))
@@ -36,18 +36,18 @@
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">
+                                    <th>#</th>
+                                    <th>
                                         {!! sortable("Name") !!}
                                     </th>
-                                    <th scope="col">
+                                    <th>
                                         {!! sortable("Address") !!}
                                     </th>
-                                    <th scope="col">
+                                    <th>
                                         {!! sortable("Email") !!}
                                     </th>
-                                    <th scope="col">Contacts</th>
-                                    <th scope="col">Actions</th>
+                                    <th>Contacts</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
