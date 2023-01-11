@@ -34,7 +34,7 @@ class CompanyController extends Controller
     {
         $company = new Company;
 
-        return view('company.create', compact('company'));
+        return view('companies.create', compact('company'));
     }
 
     /**

@@ -15,7 +15,7 @@
                                 @endif
                             </h2>
                             <div class="ml-auto">
-                                <a href="{{ route('companies.create') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i>Add New</a>
+                                <a href="{{ route('companies.create') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i>Add New Company</a>
                             </div>
                         </div>
                     </div>

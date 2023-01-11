@@ -66,6 +66,7 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')
             ->with('message', 'Contact has been moved to trash.')
             ->with('undoRoute', route('contacts.restore', $contact->id));
+
     }
 
     public function restore(Contact $contact)
