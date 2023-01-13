@@ -18,7 +18,7 @@ class ContactController extends Controller
     {
         $companies = $this->userCompanies();
         // DB::enableQueryLog();
-        $contacts = Contact::allowedTrash()
+        $contacts = Contact::allowedTrash()->with('company')
         ->allowedSorts(['first_name', 'last_name', 'email'], "-id")
         ->allowedFilters('company_id')
         ->allowedSearch('first_name', 'last_name', 'email')
