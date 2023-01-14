@@ -3,7 +3,7 @@
     <td>{{ $company->name}}</td>
     <td>{{ $company->address }}</td>
     <td>{{ $company->email }}</td>
-    <td>{{ $company->contacts->count() }}</td>
+    <td>{{ $company->contacts_count }}</td>
     <td width="150">
         @if ($showTrashButtons)
         <form action="{{ route('companies.restore', $company->id) }}" method="POST" style="display: inline">

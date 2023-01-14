@@ -23,7 +23,7 @@ class ContactController extends Controller
         ->allowedFilters('company_id')
         ->allowedSearch('first_name', 'last_name', 'email')
         ->forUser(auth()->user())
-        ->paginate(10);
+        ->paginate(20);
         // dump(DB::getQueryLog());
         return view('contacts.index', compact('contacts', 'companies'));
     }
